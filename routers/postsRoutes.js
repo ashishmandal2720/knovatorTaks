@@ -1,21 +1,23 @@
 const router = require('express').Router();
 const posts = require('../models/posts');
-const auth = require("../middleware/auth");
+const { requireAuth } = require('../middleware/auth'); 
 
 
 const {
     createPostData,
     editpostData,
     getAllPosts,
+    getOnePosts,
     deletePostData
 
-}=require('../controller/postsController');
+} = require('../controller/postsController');
 
-router.post("/createPostData",auth,createPostData)
-router.patch("/editCart",editpostData)
-router.get("/getAllCart",getAllPosts)
-router.delete("/:id", deletePostData);
+router.post("/createPostData", requireAuth, createPostData)
+router.put("/editPost/:postId", requireAuth, editpostData)
+router.get("/getAll", requireAuth, getAllPosts)
+router.get("/getOne/:postId", requireAuth, getOnePosts)
+router.delete("/:id", requireAuth, deletePostData);
 
-  
+
 
 module.exports = router;

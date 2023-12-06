@@ -7,21 +7,19 @@ const postsSchema = new mongoose.Schema({
     },
     body: {
         type: String,
-        // Remove the unique constraint if multiple posts can have the same body
-        // unique: true
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' // Make sure this matches your User model name
+        ref: "User"
     },
-    active: { 
+    active: {
         type: Boolean,
         default: true
     },
-    geoLocation: {
-        latitude: Number,
-        longitude: Number
+    location: {
+        type: { type: String, default: 'Point' },
+        coordinates: { type: [Number], default: [0, 0] },
     },
 });
 
-module.exports = mongoose.model("Post", postsSchema); // Corrected the model name to "Post"
+module.exports = mongoose.model("Post", postsSchema); 
